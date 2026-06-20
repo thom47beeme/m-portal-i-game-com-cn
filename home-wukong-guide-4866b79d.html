@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>悟空体育 · 运动数据与赛事聚合平台</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 18px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #faf9f7;
+      color: #1e1e1e;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', sans-serif;
+      line-height: 1.65;
+      padding: 2rem 1.25rem 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 680px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* ---- hero 开场 ---- */
+    .hero {
+      margin-bottom: 2.2rem;
+      border-bottom: 1px solid #e4e0da;
+      padding-bottom: 1.8rem;
+    }
+
+    .hero__label {
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: #8e8a84;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero__title {
+      font-size: 2.8rem;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+      color: #121212;
+    }
+
+    .hero__sub {
+      font-size: 1rem;
+      color: #5c5955;
+      max-width: 32em;
+    }
+
+    /* ---- 正文段落 ---- */
+    .prose {
+      font-size: 1rem;
+    }
+
+    .prose p {
+      margin-bottom: 1.4rem;
+    }
+
+    .prose a {
+      color: #1e3a5f;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-thickness: 1.5px;
+      text-decoration-color: #c0c9d4;
+      transition: text-decoration-color 0.2s ease, color 0.2s ease;
+    }
+
+    .prose a:hover {
+      color: #0a1c2e;
+      text-decoration-color: #1e3a5f;
+    }
+
+    /* ---- 特点卡片（紧凑，极简） ---- */
+    .feature-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+      margin: 2rem 0 2.4rem;
+    }
+
+    .feature-item {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02), 0 0 0 1px #eae7e2 inset;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .feature-item:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 0 0 1px #d6d0c8 inset;
+    }
+
+    .feature-item h3 {
+      font-size: 1.05rem;
+      font-weight: 550;
+      margin-bottom: 0.35rem;
+      color: #1f2a36;
+    }
+
+    .feature-item h3 span {
+      display: inline-block;
+      margin-right: 0.3rem;
+      color: #6b7b8c;
+      font-weight: 350;
+    }
+
+    .feature-item p {
+      font-size: 0.92rem;
+      color: #3e3c39;
+      line-height: 1.5;
+    }
+
+    /* ---- 温和引用 / 场景 ---- */
+    .scene-note {
+      background: #f4f1ed;
+      border-radius: 12px;
+      padding: 1.4rem 1.6rem;
+      margin: 1.8rem 0 2.2rem;
+      font-size: 0.9rem;
+      color: #2b2a27;
+    }
+
+    .scene-note em {
+      font-style: italic;
+      color: #1e3a5f;
+    }
+
+    /* ---- FAQ 摘要 / 提示 ---- */
+    .faq-mini {
+      border-top: 1px solid #e4e0da;
+      padding-top: 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .faq-mini details {
+      margin-bottom: 0.75rem;
+    }
+
+    .faq-mini summary {
+      font-weight: 480;
+      cursor: pointer;
+      color: #1f2a36;
+      font-size: 0.95rem;
+      padding: 0.3rem 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .faq-mini summary::before {
+      content: "▸";
+      display: inline-block;
+      font-size: 0.8rem;
+      transition: transform 0.15s ease;
+      color: #7f8b9a;
+    }
+
+    .faq-mini details[open] summary::before {
+      transform: rotate(90deg);
+    }
+
+    .faq-mini details p {
+      margin-top: 0.25rem;
+      padding-left: 1rem;
+      font-size: 0.88rem;
+      color: #4a4844;
+    }
+
+    /* ---- 页脚 ---- */
+    .footer {
+      margin-top: 3rem;
+      font-size: 0.8rem;
+      color: #8a867f;
+      border-top: 1px solid #e7e3dd;
+      padding-top: 1.8rem;
+      text-align: left;
+    }
+
+    .footer a {
+      color: #5b6775;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    /* 响应式微调 */
+    @media (max-width: 480px) {
+      html {
+        font-size: 16px;
+      }
+      body {
+        padding: 1.5rem 1rem 3rem;
+      }
+      .hero__title {
+        font-size: 2.2rem;
+      }
+      .feature-item {
+        padding: 1rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Hero 开场短句 -->
+    <header class="hero">
+      <div class="hero__label">平台概述</div>
+      <h1 class="hero__title">识别一个体育数据站</h1>
+      <p class="hero__sub">当你第一次看到「悟空体育」这个名字，很自然会想：这是一个提供赛事信息、运动数据、还是社区交流的网站？本篇带你快速了解它的定位与功能。</p>
+    </header>
+
+    <!-- 承接段落 -->
+    <div class="prose">
+      <p>
+        一个网站的价值，往往体现在它能否让使用者迅速找到自己关心的内容。<strong>悟空体育</strong> 正是围绕“运动数据聚合”与“赛事信息索引”这两条主线来组织内容。无论是职业联赛的赛程、统计数据，还是业余赛事的活动公告，平台都试图用一种清晰、层级分明的结构来呈现，减少用户翻阅和筛选的时间。
+      </p>
+      <p>
+        从技术层面看，这类体育信息平台通常需要兼顾实时性与准确性。而<strong>悟空体育</strong> 的设计思路更偏向于“知识库”与“导航站”的结合——它不仅展示比赛结果，也整理规则说明、赛季背景以及队伍变动等上下文信息，帮助用户建立对赛事更完整的认知。
+      </p>
+    </div>
+
+    <!-- 特点列表 -->
+    <div class="feature-grid">
+      <div class="feature-item">
+        <h3><span>01</span> 多维赛事索引</h3>
+        <p>按联赛、赛季、队伍或项目维度组织赛事页面。每项赛事都关联基础数据、近期赛果与历史记录，方便横向对比。</p>
+      </div>
+      <div class="feature-item">
+        <h3><span>02</span> 结构化数据展示</h3>
+        <p>统计表格、分组排名、赛程时间轴均采用统一的数据模型，降低阅读负担。数字与文字搭配呈现，便于快速扫描。</p>
+      </div>
+      <div class="feature-item">
+        <h3><span>03</span> 轻量级知识支持</h3>
+        <p>部分页面附带规则摘要、常见术语解释或赛制说明。尤其适合刚接触某项运动的新观众，减少信息差。</p>
+      </div>
+    </div>
+
+    <!-- 场景 / 温和提示 -->
+    <div class="scene-note">
+      <p><em>一个实用场景：</em> 假设你想了解某支篮球队在近三个赛季的客场胜率变化，或者某个电竞联赛的积分晋级规则——通过 <strong>悟空体育</strong> 的赛事页面，通常可以在两到三次点击内找到对应的表格或说明段落。这种效率源于对数据分类的持续梳理，而非堆砌信息。</p>
+    </div>
+
+    <!-- FAQ 摘要 / 常见疑问 -->
+    <div class="faq-mini">
+      <details>
+        <summary>悟空体育 的数据来源可靠吗？</summary>
+        <p>平台主要整理公开可查的赛事信息与官方统计数据，并标注参考来源。用户可自行核对原始数据，平台不生成或虚构比赛结果。</p>
+      </details>
+      <details>
+        <summary>是否覆盖所有体育项目？</summary>
+        <p>当前以主流职业联赛和部分高校、业余赛事为主。项目覆盖范围会逐步更新，具体以网站实际收录为准。</p>
+      </details>
+      <details>
+        <summary>移动端浏览体验如何？</summary>
+        <p>页面采用响应式布局，在手机与平板设备上均可正常阅读。表格和导航经过简化，优先保障核心信息的可读性。</p>
+      </details>
+    </div>
+
+    <!-- 温和结尾 + 内嵌链接 -->
+    <div class="prose" style="margin-top: 2.2rem;">
+      <p>
+        如果你希望快速判断一个体育信息站是否适合自己，最好的方式就是直接浏览它的内容结构。目前 <a href="https://home-wukong.com">悟空体育</a> 已经整理了一定数量的赛事与数据页面，你可以从首页的导航或分类入口开始探索。随着时间推移，平台上的内容会逐渐丰富，但保持信息组织的清晰度始终是它的核心原则。
+      </p>
+      <p style="color: #6b6761; font-size: 0.9rem;">
+        一个实用建议：初次使用时，可以先关注你最熟悉的联赛或队伍，通过对比实际数据与页面展示逻辑，来评估这个平台是否符合你的查阅习惯。
+      </p>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+      <p>© 悟空体育 · 致力于让体育信息更易获取</p>
+    </footer>
+  </div>
+</body>
+</html>
